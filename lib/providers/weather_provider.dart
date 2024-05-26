@@ -2,9 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:routing_shell_ex/data/weather_repository.dart';
 import 'package:routing_shell_ex/models/weather.dart';
 
-final weatherFutureProvider = FutureProvider.autoDispose<Weather>((ref) {
+// Future/StreamProviders should use .autoDispose to
+// clean up after themselves when the Widget it is being used in is dismounted.
+final weatherFutureProvider = FutureProvider.autoDispose.family<Weather, String>((ref, city) {
   final weatherRepository = ref.watch(weatherRepositoryProvider);
-  return weatherRepository.getWeather('London');
+  return weatherRepository.getWeather(city);
 });
 
 final weatherRepositoryProvider = Provider<WeatherRepository>((ref) {

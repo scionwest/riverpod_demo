@@ -75,11 +75,15 @@ class _HelloWorldConsumerStatefulWidgetState extends ConsumerState<HelloWorldCon
           },
           child: Text('Get Cat Fact'),
         ),
-        catFacts.when(
-          // Show the facts as they're refreshed.
-          data: (catFact) => Text(catFact.fact),
-          loading: () => const CircularProgressIndicator(),
-          error: (error, stack) => Text('Error: $error'),
+        FutureBuilder(
+          future: catFacts,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Text(snapshot.data ?? 'No Fact');
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
       ],
     );

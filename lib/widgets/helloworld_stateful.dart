@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:routing_shell_ex/models/cat_fact.dart';
 import 'package:routing_shell_ex/providers/cat_fact_provider.dart';
 import 'package:routing_shell_ex/providers/clock_provider.dart';
 import 'package:routing_shell_ex/providers/counter_state_provider.dart';
@@ -71,9 +70,9 @@ class _HelloWorldConsumerStatefulWidgetState extends ConsumerState<HelloWorldCon
         TextButton(
           onPressed: () {
             // Refresh the API call to get a new fact.
-            ref.refresh(catFactsProvider);
+            return ref.refresh(catFactsProvider);
           },
-          child: Text('Get Cat Fact'),
+          child: const Text('Get Cat Fact'),
         ),
         FutureBuilder(
           future: catFacts,
